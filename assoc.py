@@ -5,6 +5,13 @@ import sys
 
 ANY_PATTERN="."
 
+def read_constrained(prompt, type_f):
+    try:
+        return type_f(raw_input(prompt))
+    except ValueError:
+        print("not valid, try again")
+        return read_constrained(prompt, type_f)
+
 def assoc_open(file, openers):
     if len(openers) == 1:
         subprocess.call([openers[0], file])
@@ -13,9 +20,15 @@ def assoc_open(file, openers):
         for i, exe in enumerate(openers):
             print(" : ".join([str(i), exe]))
         try:
-            entry = int(raw_input("pick opener (or ^C to exit): "))
+            def valid_pick(pick):
+                pick = int(pick)
+                if pick >= len(openers):
+                    raise ValueError();
+                return pick
+            entry = read_constrained("pick opener (or ^C to exit): ", valid_pick)
             assoc_open(file, [openers[entry]])
         except KeyboardInterrupt:
+            print("")
             return
 
 
