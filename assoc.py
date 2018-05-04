@@ -1,11 +1,23 @@
 import argparse
 import subprocess
 import yaml
+import sys
 
 ANY_PATTERN="."
 
 def assoc_open(file, openers):
-    subprocess.call([openers[0], file], stdout=subprocess.PIPE)
+    if len(openers) == 1:
+        subprocess.call([openers[0], file])
+    else:
+        print("multiple options:")
+        for i, exe in enumerate(openers):
+            print(" : ".join([str(i), exe]))
+        try:
+            entry = int(raw_input("pick opener (or ^C to exit): "))
+            assoc_open(file, [openers[entry]])
+        except KeyboardInterrupt:
+            return
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="A file association manager")
