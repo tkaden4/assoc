@@ -3,7 +3,7 @@
 A smart, desktop environment agnostic file association manager.
 
 ## Usage
-`assoc <path> [--open]`
+`assoc <path> [--list]`
 
-List the matching associations for path, or open it with the
-matching association if the `--open` flag is given.
+Open the file regarding rules defined in the `.assocrc` YAML file
+or list the valid openers if `--list` is specified.

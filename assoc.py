@@ -10,7 +10,7 @@ def assoc_open(file, openers):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="A file association manager")
     parser.add_argument("file", type=str);
-    parser.add_argument("--open", action="store_true");
+    parser.add_argument("--list", action="store_true");
     args = parser.parse_args()
 
     # load the 
@@ -21,10 +21,9 @@ if __name__ == "__main__":
         extension = ".".join(args.file.split(".")[1:])
         # make sure pattern is in listed patterns
         if extension in patterns or ANY_PATTERN in patterns:
-            if args.open:
-                # open it if argument is set
-                assoc_open(args.file, exes)
-            else:
-                # otherwise print the list of openers
+            if args.list:
+                # list openers
                 for exe in exes:
                     print(exe)
+            else:
+                assoc_open(args.file, exes)
