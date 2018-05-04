@@ -1,0 +1,5 @@
+# Sample .assocrc
+global:
+    [
+        [[tar, tar.gz, .], [gvim, vim]]
+    ]
